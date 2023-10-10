@@ -57,6 +57,11 @@ button[type='submit'] {
   box-shadow: inset 4.3px 4.3px 7px #fff;
 }
 
+button[disabled] {
+  color: #ab803c;
+  animation: none;
+}
+
 .timer {
   display: flex;
   margin-top: 10px;
