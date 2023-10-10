@@ -9,7 +9,7 @@ const hour = document.querySelector('[data-hours]');
 const min = document.querySelector('[data-minutes]');
 const sec = document.querySelector('[data-seconds]');
 const spans = document.querySelectorAll('.value');
-document.body.style.backgroundColor = '#ece5';
+document.body.style.backgroundColor = '#c4b59d';
 
 let timerId = null;
 
