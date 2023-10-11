@@ -12,7 +12,6 @@ const spans = document.querySelectorAll('.value');
 document.body.style.backgroundColor = '#c4b59d';
 
 let timerId = null;
-
 btn.disabled = true;
 
 flatpickr(date, {

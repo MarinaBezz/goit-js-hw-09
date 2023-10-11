@@ -28,27 +28,29 @@ function createPromise(position, delay) {
 
 function onPromiseCreate(e) {
   e.preventDefault();
-  const { delay, step, amount } = e.currentTarget.elements;
-  let inputDelay = Number(delay.value);
-  let inputStep = Number(step.value);
-  let inputAmount = Number(amount.value);
+  let firstDelay = Number(form.delay.value);
+  let step = Number(form.step.value);
+  let amount = Number(form.amount.value);
+  if (step < 0 || amount <= 0) {
+    Notify.failure(`❌ Enter the value > 0`, { timeout: 3000 });
+  } else {
+    for (let i = 0; i < amount; i += 1) {
+      let promiseDelay = firstDelay + step * i;
+      createPromise(i, promiseDelay)
+        .then(({ position, delay }) => {
+          Notify.success(
+            `✅ Fulfilled promise ${position} in ${delay}ms`,
 
-  for (let i = 1; i <= inputAmount; i += 1) {
-    inputDelay += inputStep;
-
-    createPromise(i, inputDelay)
-      .then(({ position, delay }) => {
-        Notify.success(
-          `✅ Fulfilled promise ${position} in ${delay}ms`,
-          options
-        );
-      })
-      .catch(({ position, delay }) => {
-        Notify.failure(
-          `❌ Rejected promise ${position} in ${delay}ms`,
-          options
-        );
-      });
-    e.currentTarget.reset();
+            {
+              timeout: 3000,
+            }
+          );
+        })
+        .catch(({ position, delay }) => {
+          Notiflix.Notify.failure(
+            `❌ Rejected promise ${position} in ${delay}ms`
+          );
+        });
+    }
   }
 }
